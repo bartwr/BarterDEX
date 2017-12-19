@@ -2802,6 +2802,16 @@ function DepositOnError(deposit_data) {
 
 /* Auto Trading Bot */
 
+// selectSellTab :: void -> void
+function selectSellTab() {
+	$('#trading_pair_options_selling').trigger('click');
+}
+
+// selectBuyTab :: void -> void
+function selectBuyTab() {
+	$('#trading_pair_options_buying').trigger('click');
+}
+
 function setOrderPrice(trade_data) {
 	console.log(trade_data);
 	//trade_data = JSON.parse(trade_data);
@@ -2810,10 +2820,12 @@ function setOrderPrice(trade_data) {
 	if (trade_data.type == 'asks') {
 		trade_price_plus = trade_data.price * 1.001;
 		toastr.info(`Auto selected price as ${trade_data.price} + 0.1% = ${trade_price_plus.toFixed(8)}`,'Trade Info');
+		selectBuyTab();
 	}
 	if (trade_data.type == 'bids') {
 		trade_price_plus = trade_data.price / 1.001;
 		toastr.info(`Auto selected price as ${trade_data.price} - 0.1% = ${trade_price_plus.toFixed(8)}`,'Trade Info');
+		selectSellTab();
 	}
 
 	$('.trading_pair_coin_price').val(trade_price_plus.toFixed(8));
